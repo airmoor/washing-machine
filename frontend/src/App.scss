@@ -1,0 +1,19 @@
+@mixin transition() {
+  transition: 0.15s ease-in-out;
+}
+
+body{
+  background-color: #fafafa;
+}
+
+.App {
+  text-align: center;
+
+  a{
+    color: black;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}
+

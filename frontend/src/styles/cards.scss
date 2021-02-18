@@ -1,0 +1,39 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+.App{
+  .card{
+	border-radius: 16px;
+	min-height: 200px;
+	background: white;
+	border: 2px solid transparent;
+	box-sizing: border-box;
+	//height: 104px;
+	box-shadow: 0 8px 16px 0 rgba(56, 65, 76, 0.08);
+	padding: 16px;
+	@include transition();
+	&--small{
+	  min-height: auto;
+	  width: auto;
+	  padding: 8px;
+	}
+
+	&-body{
+	  align-items: center;
+	  align-content: center;
+	  align-self: center;
+	  justify-content: center;
+	  justify-items: center;
+	  justify-self: center;
+	}
+
+	&--selected{
+	  background-color: $success;
+	}
+
+	&:hover{
+	  cursor: pointer;
+	  box-shadow: 0 12px 24px 0 rgba(69, 83, 98, 0.24);
+	}
+  }
+}
