@@ -6,6 +6,43 @@ $on: #21E76E;
   .btn{
 	border-radius: 100px;
 
+	&-outline{
+	  &-success {
+		color: $success;
+		border-color:$success;
+
+		&:hover {
+		  color: #fff;
+		  background-color: $success;
+		  border-color: $success;
+		}
+	  }
+
+	  &-danger{
+		color: $danger;
+		border-color:$danger;
+
+		&:hover {
+		  color: #fff;
+		  background-color: $danger;
+		  border-color: $danger;
+		}
+	  }
+	}
+
+	&-back{
+	  @include transition();
+	  cursor: pointer;
+	  &:hover{
+		.link{
+		  color: $primary;
+		}
+		.card--small{
+		  box-shadow: 0 12px 24px 0 rgba(69, 83, 98, 0.24);
+		}
+	  }
+	}
+
 	&-new{
 	  background: transparent;
 	  box-sizing: border-box;

@@ -31,11 +31,12 @@ class WasherCard extends React.Component {
 	render() {
 		return (
 			<Card onClick={this.redirectToWasher} className="mb-3 ">
-				<Card.Body >
+				<Card.Body className="d-flex flex-column justify-content-between">
 
-					<div>{this.state.washer.name}</div>
+					<h4>{this.state.washer.name}</h4>
 
-						<div>
+					<div>
+						<div className="mb-2">
 							{this.state.washer.model}
 						</div>
 
@@ -45,6 +46,8 @@ class WasherCard extends React.Component {
 								: <div> off </div>
 							}
 						</div>
+					</div>
+
 
 				</Card.Body>
 			</Card>

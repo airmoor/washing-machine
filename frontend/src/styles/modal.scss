@@ -1,0 +1,28 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+.modal{
+  &-dialog{
+	.modal-content{
+	  border-radius: 16px;
+	}
+  }
+  .btn{
+	border-radius: 100px;
+
+	&-outline {
+	  &-success {
+		color: $success;
+		border-color: $success;
+
+		&:hover {
+		  color: #fff;
+		  background-color: $success;
+		  border-color: $success;
+		}
+	  }
+	}
+  }
+}
+
+

@@ -8,6 +8,8 @@ import * as actionCreators from './../store/actions';
 import ToggleWasherButton from "./elements/ToggleWasherButton";
 import BackButton from "./elements/BackButton";
 import EditButton from "./elements/EditButton";
+import SubmitModal from "./elements/SubmitModal";
+import {timeFormat} from "../services/utils";
 
 class WasherPage extends React.Component {
 
@@ -16,14 +18,18 @@ class WasherPage extends React.Component {
 
 		this.onChangeSearch = this.onChangeSearch.bind(this);
 		this.deleteWasher = this.deleteWasher.bind(this);
+		this.startWashingMachine = this.startWashingMachine.bind(this);
+		this.openModalWashingMachine = this.openModalWashingMachine.bind(this)
+		this.setModalShow = this.setModalShow.bind(this);
 
 		this.state = {
 			washer: this.props.washer,
 			selectedMode: {
-				id: 0
-			}
+				id: null
+			},
+			modalShow:false,
+			modalData: {},
 		};
-
 	}
 
 	componentDidMount() {
@@ -34,11 +40,62 @@ class WasherPage extends React.Component {
 	}
 
 	deleteWasher() {
+
 		const id = this.props.match.params.id;
 		this.props.deleteWasher(id).then(() => {
 			this.props.getWashers().then(() => {
 				this.props.history.push('/');
 			})
+		})
+	}
+
+	setModalShow(val) {
+		this.setState({
+			modalShow: val
+		});
+	}
+
+	openModalWashingMachine() {
+		this.setModalShow(true);
+		if (this.props.washer.isWorking) {
+			this.setState({
+				modalData: {
+					modalText: 'This washing machine is already working!',
+					withSubmit:false
+				}
+			});
+		}
+		else if (this.state.selectedMode.id)
+			this.setState({
+				modalData: {
+					mode: this.state.selectedMode,
+					modalText: 'Are you sure you are going to start the washing machine?',
+					withSubmit:true
+				}
+			});
+		else {
+			this.setState({
+				modalData: {
+					modalText: 'You need to select the mode before starting the washing machine.',
+					withSubmit:false
+				}
+			});
+		}
+	}
+	startWashingMachine() {
+		this.setModalShow(false);
+		const id = this.props.washer.id;
+		const now = new Date();
+
+		const data = {
+			...this.props.washer,
+			isWorking: true,
+			lastWorkingTime: now,
+			lastModeId: this.state.selectedMode.id
+		};
+
+		this.props.updateWasher(id, data).then(()=> {
+			this.props.getWasher(id)
 		})
 	}
 
@@ -50,16 +107,10 @@ class WasherPage extends React.Component {
 	}
 
 	selectMode(mode) {
-		console.log(mode)
+		console.log(mode);
 		this.setState({
 			selectedMode: mode
 		});
-	}
-
-	timeFormat(time) {
-		let hour = '';
-		if (time > 60) hour = Math.round(time / 60) + 'h '
-		return hour + Math.round(time % 60) + ' min'
 	}
 
 	render() {
@@ -72,23 +123,21 @@ class WasherPage extends React.Component {
 
 				<div>
 					<h1 className="text-center mb-4">{washer.name}</h1>
-					<h2 className="text-center mb-4">{washer.model}</h2>
-					<h1 className="text-center mb-4">
+					<h4 className="text-center mb-4">{washer.model}</h4>
+					<h2 className="text-center mb-4">
 						{washer.isWorking ?
 							<div> on </div> : <div> off </div>
 						}
-					</h1>
-
+					</h2>
 				</div>
 
-				<div className="d-flex my-3 align-items-center">
-					<ToggleWasherButton/>
-					<h1 className="ml-5"> Wash modes </h1>
-
+				<div className="d-flex mt-3 mb-5 align-items-center">
+					<ToggleWasherButton isWorking={washer.isWorking}
+					                    action={this.openModalWashingMachine}/>
+					<h2 className="ml-5"> Wash modes </h2>
 				</div>
 
 				<div className="row">
-
 					{
 						modes.map((mode) =>
 							<div key={'washer' + mode.id}
@@ -106,9 +155,9 @@ class WasherPage extends React.Component {
 											{mode.spinSpeed} spin speed
 										</div>
 										<div className="mb-4">
-											{this.timeFormat(mode.duration)}
+											{timeFormat(mode.duration)}
 										</div>
-										<EditButton />
+										<EditButton goTo={`/mode/${mode.id}/edit`}/>
 									</Card.Body>
 								</Card>
 							</div>)
@@ -123,7 +172,7 @@ class WasherPage extends React.Component {
 					</div>
 				</div>
 
-				<div>
+				<div className={'mt-3'}>
 					<NavLink to={'/washer/' + this.state.washer.id + '/edit'}>
 						<Button className="mr-3" variant="outline-success">
 							Edit washer
@@ -135,6 +184,10 @@ class WasherPage extends React.Component {
 					</Button>
 				</div>
 
+				<SubmitModal show={this.state.modalShow}
+				             modalData={this.state.modalData}
+				             onSubmit={this.startWashingMachine}
+				             onHide={() => this.setModalShow(false)}/>
 			</div>
 		)
 	}
@@ -149,6 +202,7 @@ const mapDispatchToProps = dispatch => ({
 	getModes: () => dispatch(actionCreators.getModes()),
 	getWashers: () => dispatch(actionCreators.getWashers()),
 	getWasher: (id) => dispatch(actionCreators.getWasher(id)),
+	updateWasher: (id, data) => dispatch(actionCreators.updateWasher(id, data)),
 	deleteWasher: (id) => dispatch(actionCreators.deleteWasher(id)),
 });
 

@@ -87,10 +87,10 @@ class WasherCreate extends React.Component {
 				</Form>
 
 				<NavLink className="mr-5" to={'/'}>
-					<Button variant="light"> Cancel </Button>
+					<Button variant="outline-secondary"> Cancel </Button>
 				</NavLink>
 
-				<Button onClick={this.createWasher} variant="success">
+				<Button onClick={this.createWasher} variant="outline-success">
 					Create
 				</Button>
 			</div>

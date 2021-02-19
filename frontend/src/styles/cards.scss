@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 	//height: 104px;
 	box-shadow: 0 8px 16px 0 rgba(56, 65, 76, 0.08);
-	padding: 16px;
+	//padding: 16px;
 	@include transition();
 	&--small{
 	  min-height: auto;
@@ -28,7 +28,8 @@
 	}
 
 	&--selected{
-	  background-color: $success;
+	  //background-color: $success;
+	  background: rgba(36, 255, 121, 0.38);
 	}
 
 	&:hover{

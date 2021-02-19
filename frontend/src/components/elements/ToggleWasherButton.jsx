@@ -2,11 +2,27 @@ import React from 'react';
 
 export default class ToggleWasherButton extends React.Component {
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isWorking: this.props.isWorking,
+		};
+
+		this.onChange = this.onChange.bind(this)
+	}
+
+	onChange(e) {
+		this.setState({
+			duration: e.target.value
+		});
+	}
+
 	render() {
 		return (
-			<div>
-				<label className="power">
-					<input type="checkbox"/>
+			<div onClick={this.props.action}>
+				<div className="power" >
+					<input type="checkbox" onChange={this.onChange} checked={this.props.isWorking} />
 						<div>
 							<svg viewBox="0 0 44 44">
 								<path
@@ -15,7 +31,7 @@ export default class ToggleWasherButton extends React.Component {
 								</path>
 							</svg>
 						</div>
-				</label>
+				</div>
 			</div>
 		)
 	}

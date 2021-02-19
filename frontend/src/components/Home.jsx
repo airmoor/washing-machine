@@ -46,7 +46,7 @@ class Home extends React.Component {
 								<WasherCard washer={washer}/>
 							</div>)
 					}
-					<div className="mb-3" >
+					<div className="mb-3 col-12 col-sm-6 col-md-4 col-lg-3" >
 						<NavLink to={'/washer-new'}>
 							<div className="btn-new" >
 								+

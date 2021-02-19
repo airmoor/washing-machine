@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import { Form} from "react-bootstrap";
+import { Form, Row, Col} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {withRouter} from "react-router";
 import * as actionCreators from "../store/actions";
@@ -72,39 +72,47 @@ class WasherEdit extends React.Component {
 			<div>
 				<h1 className="mb-5">Edit washing machine</h1>
 				<Form className="mb-5">
-					<Form.Label htmlFor="inlineFormInput" srOnly>
-						Name
-					</Form.Label>
-					<Form.Control onChange={this.onChangeName}
-					              className="mb-2"
-					              value={this.state.name}
-					              placeholder="Name"
-					/>
+					<Form.Group as={Row} controlId="formHorizontalName">
+						<Form.Label column sm={2}>
+							Name
+						</Form.Label>
+						<Col sm={10}>
+							<Form.Control onChange={this.onChangeName}
+							              className="mb-2"
+							              value={this.state.name}
+							              placeholder="Name"/>
+						</Col>
+					</Form.Group>
 
-					<Form.Label htmlFor="inlineFormInput" srOnly>
-						Hash
-					</Form.Label>
-					<Form.Control onChange={this.onChangeHash}
-					              className="mb-2"
-					              value={this.state.hash}
-					              placeholder="Hash"
-					/>
+					<Form.Group as={Row} controlId="formHorizontalHash">
+						<Form.Label column sm={2}>
+							Hash
+						</Form.Label>
+						<Col sm={10}>
+							<Form.Control onChange={this.onChangeHash}
+							              className="mb-2"
+							              value={this.state.hash}
+							              placeholder="Hash"/>
+						</Col>
+					</Form.Group>
 
-					<Form.Label htmlFor="inlineFormInput" srOnly>
-						Model
-					</Form.Label>
-					<Form.Control onChange={this.onChangeModel}
-					              className="mb-2"
-					              value={this.state.model}
-					              placeholder="Model"
-					/>
-
+					<Form.Group as={Row} controlId="formHorizontalModel">
+						<Form.Label column sm={2}>
+							Model
+						</Form.Label>
+						<Col sm={10}>
+							<Form.Control onChange={this.onChangeModel}
+							              className="mb-2"
+							              value={this.state.model}
+							              placeholder="Model"/>
+						</Col>
+					</Form.Group>
 				</Form>
 				<NavLink className="mr-5" to={'/'}>
-					<Button variant="light"> Cancel </Button>
+					<Button variant="outline-secondary"> Cancel </Button>
 				</NavLink>
 
-				<Button onClick={this.updateWasher} variant="success">
+				<Button onClick={this.updateWasher} variant="outline-success">
 					Update
 				</Button>
 			</div>

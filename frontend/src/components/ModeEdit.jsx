@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import {Form} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import {withRouter} from "react-router";
 import {NavLink} from "react-router-dom";
 import * as actionCreators from "../store/actions";
@@ -111,13 +111,14 @@ class ModeEdit extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="pa-5">
 				<h1 className="mb-5"> Edit mode </h1>
 				<Form className="mb-5" noValidate validated={this.state.validated}>
-					<Form.Group>
-						<Form.Label htmlFor="inlineFormInput" srOnly>
+					<Form.Group as={Row} >
+						<Form.Label column sm={2} >
 							Mode name
 						</Form.Label>
+						<Col sm={10}>
 						<Form.Control
 							required
 							className="mb-2"
@@ -125,12 +126,14 @@ class ModeEdit extends React.Component {
 							onChange={this.onChangeName}
 							placeholder="Mode name"
 						/>
+						</Col>
 					</Form.Group>
 
-					<Form.Group>
-						<Form.Label htmlFor="inlineFormInput" srOnly>
-							Mode duration
+					<Form.Group as={Row} >
+						<Form.Label column sm={2} >
+							Duration, min
 						</Form.Label>
+						<Col sm={10}>
 						<Form.Control
 							required
 							className="mb-2"
@@ -139,12 +142,13 @@ class ModeEdit extends React.Component {
 							value={this.state.duration}
 							placeholder="Mode duration"
 						/>
+						</Col>
 					</Form.Group>
-					<Form.Group>
-						<Form.Label htmlFor="inlineFormInput" srOnly>
-							Mode SpinSpeed
+					<Form.Group as={Row} >
+						<Form.Label column sm={2}>
+							Spin Speed
 						</Form.Label>
-
+						<Col sm={10}>
 						<Form.Control
 							required
 							onChange={this.onChangeSpinSpeed}
@@ -153,12 +157,14 @@ class ModeEdit extends React.Component {
 							value={this.state.spinSpeed}
 							placeholder="SpinSpeed"
 						/>
+						</Col>
 					</Form.Group>
 
-					<Form.Group>
-						<Form.Label htmlFor="inlineFormInput" srOnly>
+					<Form.Group  as={Row}>
+						<Form.Label column sm={2}>
 							Temperature
 						</Form.Label>
+						<Col sm={10}>
 						<Form.Control
 							required
 							onChange={this.onChangeTemperature}
@@ -170,11 +176,12 @@ class ModeEdit extends React.Component {
 						<Form.Control.Feedback type="invalid">
 							Temperature should be a Number
 						</Form.Control.Feedback>
+						</Col>
 					</Form.Group>
 				</Form>
 
 				<NavLink className="mr-3" to={'/washer/' + this.props.match.params.id}>
-					<Button variant="light"> Cancel </Button>
+					<Button variant="outline-secondary"> Cancel </Button>
 				</NavLink>
 
 				<Button className="mr-3" onClick={this.updateMode} variant="outline-success">
