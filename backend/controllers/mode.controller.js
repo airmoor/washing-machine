@@ -27,20 +27,11 @@ exports.create = (req, res) => {
 			res.send(data);
 		})
 		.catch(err => {
-			if (err instanceof sequelize.UniqueConstraintError) {
-
-				//todo: передавать на фронт ошибку
-				res.status(500).json({
-					error: 'Some error occurred while creating the Mode.',
-					message:
-						err.message || "duplicate error"
-				})
-			} else
-				res.status(500).send({
-					error: 'Some error occurred while creating the Mode.',
-					message:
-						err.message || "Some error occurred while creating the Mode."
-				});
+			res.status(500).send({
+				error: 'Some error occurred while creating the Mode.',
+				message:
+					err.message || "Some error occurred while creating the Mode."
+			});
 		});
 };
 
@@ -51,9 +42,9 @@ exports.findAll = (req, res) => {
 	if (searched) {
 		if (typeof searched === 'string') searched.toLowerCase();
 	}
-	const condition = searched ? { name: { [Op.iLike]: `%${searched}%` } } : null;
+	const condition = searched ? {name: {[Op.iLike]: `%${searched}%`}} : null;
 
-	Mode.findAll({ where: condition })
+	Mode.findAll({where: condition})
 		.then(data => {
 			res.send(data);
 		})

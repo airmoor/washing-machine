@@ -92,7 +92,7 @@ class ModeEdit extends React.Component {
 	}
 
 	updateMode() {
-		const id = this.props.match.params.id;
+		const id = this.state.id;
 		let data = {
 			name: this.state.name,
 			duration: this.state.duration,
@@ -103,7 +103,7 @@ class ModeEdit extends React.Component {
 
 		this.props.updateMode(id, data)
 			.then(() => {
-				this.props.getMode().then(() => {
+				this.props.getMode(id).then(() => {
 					this.props.history.goBack();
 				})
 			})

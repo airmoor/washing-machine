@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "server": "npm run start",
     "dev": "nodemon ./server.js localhost 8080"
   },
@@ -20,5 +21,8 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.5.0"
+  },
+  "devDependencies": {
+    "supertest": "^6.1.3"
   }
 }
